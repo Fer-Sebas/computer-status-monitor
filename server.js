@@ -4,6 +4,7 @@ import runBootSequence from './boot/sequence.js'
 
 import logRoutes from './routes/logs.js'
 import metricsRoutes from './routes/metrics.js'
+import broadcastTokensRoutes from './routes/broadcast-tokens.js'
 
 import express from 'express'
 
@@ -13,7 +14,7 @@ const port = process.env.PORT
 app.use(express.json())
 
 // ROUTES
-app.use('/logs', logRoutes)
+app.use('/broadcast-tokens', broadcastTokensRoutes)
 app.use('/metrics', metricsRoutes)
 
 app.get('/', (req, res) => {
