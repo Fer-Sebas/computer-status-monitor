@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 import "dotenv/config";
 
-import { transponderStore } from "../stores/broadcastTokenStore.js";
+import { broadcastTokenStore } from "../stores/broadcastTokenStore.js";
 
 const SECRET = process.env.MASTER_KEY_SEED;
 if (!SECRET)
@@ -22,7 +22,7 @@ export function requireBroadcastToken(req, res, next) {
     if (!keyId || !signature)
         return res.status(401).send("Invalid format");
 
-    const record = transponderStore[keyId];
+    const record = broadcastTokenStore[keyId];
 
     if (!record) {
         return res.status(401).send("Key revoked or unknown");
