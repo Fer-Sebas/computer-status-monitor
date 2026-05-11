@@ -1,15 +1,21 @@
-import buffer from './buffer'
+// src/logs/logger.js
 
-export default  {
-  info(message, meta) {
-    buffer.push('info', message, meta)
-  },
+import { LogBuffer } from './buffer.js';
 
-  warn(message, meta) {
-    buffer.push('warn', message, meta)
-  },
+const logBuffer = new LogBuffer(5000);
 
-  error(message, meta) {
-    buffer.push('error', message, meta)
-  }
-}
+const logger = {
+
+    info(message, meta) {
+      logBuffer.push({ type: 'info', message, timestamp: Date.now(), meta });
+    },
+    warn(message, meta) {
+      logBuffer.push({ type: 'warn', message, timestamp: Date.now(), meta });
+    },
+    error(message, meta) {
+      logBuffer.push({ type: 'error', message, timestamp: Date.now(), meta });
+    }
+
+};
+
+export default logger;
