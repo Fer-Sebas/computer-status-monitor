@@ -20,8 +20,4 @@ app.get('/', (req, res) => {
   res.json('Polaris Computer Telemetry Beacon')
 })
 
-// START SERVER + BOOT SEQUENCE
-app.listen(port, async () => {
-  await runBootSequence(port)
-
-})
+app.listen(port, async () => { await runBootSequence(port) })
