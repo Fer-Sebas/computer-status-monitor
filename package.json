@@ -4,7 +4,7 @@
   "description": "A server to log CPU and GPU stats for remote monitoring.",
   "license": "ISC",
   "author": "FerSebas",
-  "type": "commonjs",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "test": "dev",

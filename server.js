@@ -1,29 +1,25 @@
-require('dotenv/config')
+import 'dotenv/config'
 
-const express = require('express')
+import runBootSequence from './boot/sequence.js'
+
+import logRoutes from './routes/logs.js'
+import metricsRoutes from './routes/metrics.js'
+import monitorRoutes from './routes/monitor.js'
+
+import express from 'express'
+
 const app = express()
-const axios = require('axios')
 const port = process.env.PORT
+
 app.use(express.json())
 app.use(express.static('public'))
-const logger = require('./logs/logger')
-const runBootSequence = require('./boot/sequence')
-
-const indexRoutes = require('./routes')
-const logRoutes = require('./routes/logs')
-const telemetryRoutes = require('./routes/telemetry')
-const monitorRoutes = require('./routes/monitor')
-
 
 // ROUTES
-app.use('/', indexRoutes)
 app.use('/logs', logRoutes)
-app.use('/telemetry', telemetryRoutes)
-app.use('/monitor', monitorRoutes)
+app.use('/metrics', metricsRoutes)
 
-// FALLBACK ROOT
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.json('Polaris Computer Telemetry Beacon')
 })
 
 // START SERVER + BOOT SEQUENCE

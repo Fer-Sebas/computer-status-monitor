@@ -1,7 +1,7 @@
-const express = require('express')
+import express from 'express'
+import buffer from '../logs/buffer.js'
 
 const router = express.Router()
-const buffer = require('../logs/buffer')
 
 router.post('/', (req, res) => {
   const {
@@ -26,4 +26,4 @@ router.post('/', (req, res) => {
   res.sendStatus(200)
 })
 
-module.exports = router
+export default router

@@ -1,4 +1,4 @@
-module.exports = {
+const colors = {
   reset: '\x1b[0m',
   cyan: '\x1b[36m',
   green: '\x1b[32m',
@@ -8,3 +8,5 @@ module.exports = {
   blue: '\x1b[34m',
   gray: '\x1b[90m'
 }
+
+export default colors

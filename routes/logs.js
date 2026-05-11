@@ -1,8 +1,7 @@
-const express = require('express')
+import express from 'express'
+import buffer from '../logs/buffer.js'
 
 const router = express.Router()
-
-const buffer = require('../logs/buffer')
 
 router.get('/', (req, res) => {
   res.json(buffer.tail(200))
@@ -28,4 +27,4 @@ router.get('/stream', (req, res) => {
   })
 })
 
-module.exports = router
+export default router

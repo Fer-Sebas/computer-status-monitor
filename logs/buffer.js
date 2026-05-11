@@ -53,4 +53,4 @@ class LogBuffer {
 }
 }
 
-module.exports = new LogBuffer(5000)
+export default new LogBuffer(5000)

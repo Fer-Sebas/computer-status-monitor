@@ -1,6 +1,6 @@
-const buffer = require('./buffer')
+import buffer from './buffer'
 
-module.exports = {
+export default  {
   info(message, meta) {
     buffer.push('info', message, meta)
   },
