@@ -11,17 +11,17 @@ if (!SECRET)
 
 export function generateBroadcastToken(name) {
 
-    const keyId = crypto.randomBytes(6).toString("hex");
+    const tokenId = crypto.randomBytes(6).toString("hex");
 
     const signature = crypto
         .createHmac("sha256", SECRET)
-        .update(keyId)
+        .update(tokenId)
         .digest("hex");
 
     return {
         name,
-        keyId,
-        key: (`${keyId}.${signature}`)
+        tokenId,
+        token: (`${tokenId}.${signature}`)
     };
     
 }

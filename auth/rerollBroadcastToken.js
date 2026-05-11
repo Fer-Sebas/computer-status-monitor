@@ -14,27 +14,27 @@ export function rerollBroadcastToken(oldBroadcastToken) {
 
     if (!existing) { return null;}
 
-    // generate new keyId
-    const newKeyId = crypto.randomBytes(6).toString("hex");
+    // generate new tokenId
+    const newTokenId = crypto.randomBytes(6).toString("hex");
     
     const signature = crypto
         .createHmac("sha256", SECRET)
-        .update(newKeyId)
+        .update(newTokenId)
         .digest("hex");
 
     // delete old entry
     delete broadcastTokenStore[oldBroadcastToken];
 
     // insert new entry with same identity
-    broadcastTokenStore[newKeyId] = {
-        name: existing.name,
-        createdAt: Date.now()
+    broadcastTokenStore[newTokenId] = {
+        tokenAlias: existing.tokenAlias,
+        updatedAt: new Date(Date.now()).toLocaleString()
     };
 
     return {
-        name: existing.name,
-        keyId: newKeyId,
-        key: `${newKeyId}.${signature}`
+        tokenAlias: existing.tokenAlias,
+        tokenId: newTokenId,
+        token: `${newTokenId}.${signature}`
     };
 
 }
