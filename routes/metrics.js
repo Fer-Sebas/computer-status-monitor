@@ -1,29 +1,22 @@
-import express from 'express'
-import buffer from '../logs/buffer.js'
+import express from 'express';
+import LogBuffer from '../logs/buffer.js';
+import { requireBroadcastToken } from '../auth/requireBraodcastToken.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/', (req, res) => {
-  const {
-    cpu,
-    gpu,
-    ram,
-    fans,
-    disks
-  } = req.body
+router.get('/', (req, res) => {
+  res.json(LogBuffer.tail(2));
+});
 
-  const entry = {
-    time: Date.now(),
-    cpu,
-    gpu,
-    ram,
-    fans,
-    disks
-  }
+router.post('/', requireBroadcastToken, (req, res) => {
+    const entry = {
+        type: 'metrics',
+        timestamp: Date.now(),
+        transponder: req.apiKey.keyId,
+        data: req.body
+    };
+    LogBuffer.push(entry);
+    res.sendStatus(200);
+});
 
-  buffer.push('telemetry', entry)
-
-  res.sendStatus(200)
-})
-
-export default router
+export default router;
