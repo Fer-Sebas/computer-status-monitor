@@ -4,7 +4,6 @@ import runBootSequence from './boot/sequence.js'
 
 import logRoutes from './routes/logs.js'
 import metricsRoutes from './routes/metrics.js'
-import monitorRoutes from './routes/monitor.js'
 
 import express from 'express'
 
@@ -12,7 +11,6 @@ const app = express()
 const port = process.env.PORT
 
 app.use(express.json())
-app.use(express.static('public'))
 
 // ROUTES
 app.use('/logs', logRoutes)
