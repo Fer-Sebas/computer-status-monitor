@@ -1,56 +1,57 @@
-class LogBuffer {
+export class LogBuffer {
+
+  limit;
+  logs;
+  listeners;
+  
   constructor(limit = 1000) {
-    this.limit = limit
-    this.logs = []
-    this.listeners = new Set()
+    this.limit = limit;
+    this.logs = [];
+    this.listeners = new Set();
   }
 
-  push(type, data) {
-    const entry = {
-      type,
-      time: Date.now(),
-      data
-    }
+  push(entry) {
 
-    this.logs.push(entry)
+    this.logs.push(entry);
 
-    if (this.logs.length > this.limit) {
-      this.logs.shift()
-    }
+    if (this.logs.length > this.limit) this.logs.shift();
 
-    this.broadcast(entry)
+    this.broadcast(entry);
+
   }
 
   tail(count = 100, type = null) {
-    const logs = type
-      ? this.logs.filter(log => log.type === type)
-      : this.logs
 
-    return logs.slice(-count)
+    const logs = type ? this.logs.filter(log => log.type === type) : this.logs;
+    
+    return logs.slice(-count);
+
   }
 
   subscribe(client, filter = null) {
-  client.filter = filter
-  this.listeners.add(client)
-}
 
-  unsubscribe(res) {
+    client.filter = filter;
+
+    this.listeners.add(client);
+
+  }
+
+  unsubscribe(clientOrRes) {
     for (const client of this.listeners) {
-      if (client.res === res) {
-        this.listeners.delete(client)
+      if (client === clientOrRes || client.res === clientOrRes) {
+        this.listeners.delete(client);
       }
     }
   }
 
   broadcast(entry) {
-  for (const client of this.listeners) {
-    if (client.filter && client.filter !== entry.type) {
-      continue
-    }
-
-    client.write(entry)
+    for (const client of this.listeners) {
+      if (client.filter && client.filter !== entry.type)
+        continue;
+      client.write(entry);
+      }
   }
-}
+
 }
 
-export default new LogBuffer(5000)
+export default new LogBuffer(5000);

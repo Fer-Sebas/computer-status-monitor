@@ -12,6 +12,7 @@ const app = express()
 const port = process.env.PORT
 
 app.use(express.json())
+app.set('json spaces', 2);
 
 // ROUTES
 app.use('/broadcast-tokens', broadcastTokensRoutes)
