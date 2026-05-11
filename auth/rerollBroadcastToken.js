@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 import "dotenv/config";
 
-import { transponderStore } from "../stores/broadcastTokenStore.js";
+import { broadcastTokenStore } from "../stores/broadcastTokenStore.js";
 
 const SECRET = process.env.MASTER_KEY_SEED;
 if (!SECRET)
@@ -10,7 +10,7 @@ if (!SECRET)
 
 export function rerollBroadcastToken(oldBroadcastToken) {
 
-    const existing = transponderStore[oldBroadcastToken.keyId];
+    const existing = broadcastTokenStore[oldBroadcastToken];
 
     if (!existing) { return null;}
 
@@ -23,10 +23,10 @@ export function rerollBroadcastToken(oldBroadcastToken) {
         .digest("hex");
 
     // delete old entry
-    delete transponderStore[oldKeyId];
+    delete broadcastTokenStore[oldBroadcastToken];
 
     // insert new entry with same identity
-    transponderStore[newKeyId] = {
+    broadcastTokenStore[newKeyId] = {
         name: existing.name,
         createdAt: Date.now()
     };
