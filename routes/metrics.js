@@ -5,7 +5,33 @@ import { requireBroadcastToken } from '../auth/requireBraodcastToken.js';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.json(LogBuffer.tail(2));
+  // SSE headers
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Flush headers immediately
+  res.flushHeaders?.();
+
+  // Send initial state
+  res.write(
+    `data: ${JSON.stringify(LogBuffer.tail(2))}\n\n`
+  );
+
+  // Send updates every second
+  const interval = setInterval(() => {
+    const payload = LogBuffer.tail(2);
+
+    res.write(
+      `data: ${JSON.stringify(payload)}\n\n`
+    );
+  }, 1000);
+
+  // Cleanup on disconnect
+  req.on('close', () => {
+    clearInterval(interval);
+    res.end();
+  });
 });
 
 router.post('/', requireBroadcastToken, (req, res) => {
