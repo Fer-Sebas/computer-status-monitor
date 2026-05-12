@@ -6,7 +6,15 @@ import logRoutes from './routes/logs.js'
 import metricsRoutes from './routes/metrics.js'
 import broadcastTokensRoutes from './routes/broadcast-tokens.js'
 
+import cors from 'cors';
 import express from 'express'
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://polaris.hyprthread.net'
+  ]
+}));
 
 const app = express()
 const port = process.env.PORT
