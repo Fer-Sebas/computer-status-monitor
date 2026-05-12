@@ -9,6 +9,8 @@ import broadcastTokensRoutes from './routes/broadcast-tokens.js'
 import cors from 'cors';
 import express from 'express'
 
+const app = express()
+
 app.use(cors({
   origin: [
     'http://localhost:5173',
@@ -16,7 +18,6 @@ app.use(cors({
   ]
 }));
 
-const app = express()
 const port = process.env.PORT
 
 app.use(express.json())
