@@ -14,7 +14,8 @@ const app = express()
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://polaris.hyprthread.net'
+    'https://polaris.hyprthread.net',
+    'https://polaris-web-app.vercel.app/'
   ]
 }));
 
