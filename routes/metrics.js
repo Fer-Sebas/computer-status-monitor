@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
   // Send updates every second
   const interval = setInterval(() => {
-    const payload = LogBuffer.tail(2);
+    const payload = LogBuffer.tail(1)[0];
 
     res.write(
       `data: ${JSON.stringify(payload)}\n\n`
