@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
 
-    const list = Object.entries(broadcastTokenStore).map(([tokenId, data]) => { return data; });
+    const list = Object.entries(broadcastTokenStore).map(([tokenId, data]) => { return {tokenId, ...data} });
 
     res.send(list);
 
