@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 
   // Send initial state
   res.write(
-    `data: ${JSON.stringify(LogBuffer.tail(2))}\n\n`
+    `data: ${JSON.stringify(LogBuffer.tail(1)[0])}\n\n`
   );
 
   // Send updates every second
