@@ -15,7 +15,7 @@ app.use(cors({
   origin: [
     'http://localhost:5173',
     'https://polaris.hyprthread.net',
-    'https://polaris-web-app.vercel.app/'
+    'https://polaris-web-app.vercel.app'
   ]
 }));
 
